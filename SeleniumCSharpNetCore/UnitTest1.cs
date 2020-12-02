@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using SeleniumCSharpNetCore.Pages;
 using System;
 
 namespace SeleniumCSharpNetCore
@@ -42,6 +43,20 @@ namespace SeleniumCSharpNetCore
 
             Console.WriteLine("Test1");
             Assert.Pass();
+        }
+
+        [Test]
+        public void LoginTest()
+        {
+            Driver.Navigate().GoToUrl("http://zero.webappsecurity.com/index.html");
+
+            HomePage homePage = new HomePage();
+            LoginPage loginPage = new LoginPage();
+
+            homePage.ClickLogin();
+            loginPage.EnterUserNameAndPassword("username", "password");
+            loginPage.ClickSubmit();
+            Assert.That(homePage.isAccountSummaryTabDisplayed, Is.True, "The Account Summary is not display");
         }
     }
 }
